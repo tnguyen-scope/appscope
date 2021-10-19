@@ -115,7 +115,7 @@ jobs:
     runs-on: ${{ matrix.on }}
     strategy:
       matrix:
-        on: [[ubuntu-latest],[self-hosted,ARM64]]
+        on: [default]
     steps:
 
       # Some diagnostic info on the build environment. This also outputs `arch`
