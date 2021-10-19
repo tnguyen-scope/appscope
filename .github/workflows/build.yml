@@ -429,7 +429,7 @@ jobs:
       matrix: 
         test: ${{ fromJson(needs.build.outputs.tests-aarch64) }}
       fail-fast: false
-    runs-on: [self-hosted,ARM64]
+    runs-on: [default]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
