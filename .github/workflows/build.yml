@@ -133,7 +133,7 @@ jobs:
             hostname
             ip addr
             cat /etc/resolv.conf
-            resolvectl status
+            #resolvectl status
             echo "::endgroup::"
             echo "::group::uname"
             uname -a
