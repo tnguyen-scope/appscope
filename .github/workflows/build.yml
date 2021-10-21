@@ -115,7 +115,7 @@ jobs:
     runs-on: ${{ matrix.on }}
     strategy:
       matrix:
-        on: [arm64]
+        on: [ec2]
     steps:
 
       # Some diagnostic info on the build environment. This also outputs `arch`
@@ -133,7 +133,7 @@ jobs:
             hostname
             ip addr
             cat /etc/resolv.conf
-            #resolvectl status
+            resolvectl status
             echo "::endgroup::"
             echo "::group::uname"
             uname -a
@@ -428,7 +428,7 @@ jobs:
       matrix: 
         test: ${{ fromJson(needs.build.outputs.tests-aarch64) }}
       fail-fast: false
-    runs-on: [self-hosted,linux,arm64]
+    runs-on: [self-hosted,ec2]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
