@@ -115,7 +115,7 @@ jobs:
     runs-on: ${{ matrix.on }}
     strategy:
       matrix:
-        on: [foobar, [self-hosted,arm64]]
+        on: arm64
     steps:
 
       # Some diagnostic info on the build environment. This also outputs `arch`
