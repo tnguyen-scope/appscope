@@ -115,7 +115,7 @@ jobs:
     runs-on: ${{ matrix.on }}
     strategy:
       matrix:
-        on: [[self-hosted, arm64, ec2]]
+        on: self-hosted,arm64,ec2
     steps:
 
       # Some diagnostic info on the build environment. This also outputs `arch`
@@ -429,7 +429,7 @@ jobs:
       matrix: 
         test: ${{ fromJson(needs.build.outputs.tests-aarch64) }}
       fail-fast: false
-    runs-on: [[self-hosted, arm64, linux]]
+    runs-on: self-hosted,arm64,linux
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
