@@ -118,6 +118,13 @@ jobs:
         on: [ec2, self-hosted]
     steps:
 
+      - name: Prune Docker Resources
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: |
+            echo "$RUNNER_CONTEXT"
+            docker system prune --all --volumes --force
+
       # Some diagnostic info on the build environment. This also outputs `arch`
       # which we use elsewhere for architecture-specific things.
       - name: Dump Environment
