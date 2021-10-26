@@ -115,14 +115,16 @@ jobs:
     runs-on: ${{ matrix.on }}
     strategy:
       matrix:
-        on: [ec2, self-hosted]
+        on: [ec2]
     steps:
 
       - name: Prune Docker Resources
         env:
           RUNNER_CONTEXT: ${{ toJSON(runner) }}
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: |
             echo "$RUNNER_CONTEXT"
+            echo "$MATRIX_CONTEXT"
             docker system prune --all --volumes --force
 
       # Some diagnostic info on the build environment. This also outputs `arch`
