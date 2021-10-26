@@ -120,24 +120,10 @@ jobs:
 
       - name: Prune Docker Resources
         if: ${{ matrix.on == 'ec2' }}
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-          JOB_CONTEXT: ${{ toJSON(job) }}
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
         run: |
-            #echo "RUNNER_CONTEXT = $RUNNER_CONTEXT"
-            #echo "MATRIX_CONTEXT = $MATRIX_CONTEXT"
-            #echo "STRATEGY_CONTEXT = $STRATEGY_CONTEXT"
-            #echo "JOB_CONTEXT = $JOB_CONTEXT"
-            #echo "GITHUB_CONTEXT = $GITHUB_CONTEXT"
-            #echo "STEPS_CONTEXT = $STEPS_CONTEXT"
-            docker rm --force $(docker ps -a -q)
-            docker network prune --force
-            docker volume prune --force
-            #docker system prune --all --volumes --force
+            docker rm --force $(docker ps -a -q) || exit 0
+            docker network prune --force || exit 0
+            docker volume prune --force || exit 0
 
       # Some diagnostic info on the build environment. This also outputs `arch`
       # which we use elsewhere for architecture-specific things.
