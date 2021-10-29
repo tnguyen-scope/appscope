@@ -115,7 +115,7 @@ jobs:
     runs-on: ${{ matrix.on }}
     strategy:
       matrix:
-        on: [ec2, foobar]
+        on: [ec2, arm64]
     steps:
 
       - name: Prune Docker Resources
