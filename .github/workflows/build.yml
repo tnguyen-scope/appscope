@@ -428,43 +428,43 @@ jobs:
         run: make -C test/testContainers ${{ matrix.test }}-push NOBUILD=1
 
   # Run the ARM Integration tests.
-  test-arm64:
-    name: Test aarch64/arm64
-    needs: build
-    strategy:
-      matrix: 
-        test: ${{ fromJson(needs.build.outputs.tests-aarch64) }}
-      fail-fast: false
-    runs-on: [self-hosted,ec2]
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+  #test-arm64:
+  #  name: Test aarch64/arm64
+  #  needs: build
+  #  strategy:
+  #    matrix: 
+  #      test: ${{ fromJson(needs.build.outputs.tests-aarch64) }}
+  #    fail-fast: false
+  #  runs-on: [self-hosted,ec2]
+  #  steps:
+  #    - name: Checkout Repository
+  #      uses: actions/checkout@v2
 
-      - name: Download Binaries
-        uses: actions/download-artifact@v2
-        with:
-          name: binaries
+  #    - name: Download Binaries
+  #      uses: actions/download-artifact@v2
+  #      with:
+  #        name: binaries
 
-      - name: Chmod Binaries
-        run: chmod +x lib/linux/*/* bin/linux/*/*
+  #    - name: Chmod Binaries
+  #      run: chmod +x lib/linux/*/* bin/linux/*/*
 
-      - name: Login to Container Registry
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+  #    - name: Login to Container Registry
+  #      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+  #      uses: docker/login-action@v1
+  #      with:
+  #        registry: ghcr.io
+  #        username: ${{ github.actor }}
+  #        password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update Test Image
-        run: make -C test/testContainers ${{ matrix.test }}-build
+  #    - name: Update Test Image
+  #      run: make -C test/testContainers ${{ matrix.test }}-build
 
-      - name: Run Test
-        run: make -C test/testContainers ${{ matrix.test }} NOBUILD=1
+  #    - name: Run Test
+  #      run: make -C test/testContainers ${{ matrix.test }} NOBUILD=1
 
-      - name: Upload Test Image
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-        run: make -C test/testContainers ${{ matrix.test }}-push NOBUILD=1
+  #    - name: Upload Test Image
+  #      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+  #      run: make -C test/testContainers ${{ matrix.test }}-push NOBUILD=1
 
   # Build the container image
   #image:
